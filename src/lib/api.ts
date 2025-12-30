@@ -106,15 +106,46 @@ export const userService = {
   deleteAddress: (id: number) => api.delete(`/users/addresses/${id}/`),
 }
 
+export interface CardPaymentData {
+  order_number: string
+  first_name: string
+  last_name: string
+  phone?: string
+  email?: string
+  city?: string
+  department?: string
+  postal_code?: string
+  address?: string
+  card_name: string
+  card_number: string
+  expiration_month: string
+  expiration_year: string
+  cvv: string
+  currency?: string
+  billing_nit?: string
+  billing_name?: string
+}
+
 export const paymentService = {
+  // Pagalo - Pago directo con tarjeta
+  processCardPayment: (data: CardPaymentData) =>
+    api.post('/payments/process/', data),
+  
+  // Flujo alternativo
   create: (orderNumber: string, paymentMethod: string) =>
     api.post('/payments/create/', { order_number: orderNumber, payment_method: paymentMethod }),
   confirm: (paymentId: number, transactionId: string, gatewayResponse?: Record<string, any>) =>
     api.post('/payments/confirm/', { payment_id: paymentId, transaction_id: transactionId, gateway_response: gatewayResponse }),
   fail: (paymentId: number, errorMessage: string) =>
     api.post('/payments/fail/', { payment_id: paymentId, error_message: errorMessage }),
+  
+  // Transferencia bancaria
   registerBankTransfer: (orderNumber: string, bankName: string, referenceNumber: string) =>
     api.post('/payments/bank-transfer/', { order_number: orderNumber, bank_name: bankName, reference_number: referenceNumber }),
+  
+  // Reintentar FEL
+  retryFEL: (orderNumber: string) =>
+    api.post(`/payments/retry-fel/${orderNumber}/`),
 }
 
 export const contentService = {
