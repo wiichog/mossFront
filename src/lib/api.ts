@@ -107,10 +107,14 @@ export const userService = {
 }
 
 export const paymentService = {
-  createIntent: (orderNumber: string) =>
-    api.post('/payments/create-intent/', { order_number: orderNumber }),
-  confirmPayment: (paymentIntentId: string) =>
-    api.post('/payments/confirm/', { payment_intent_id: paymentIntentId }),
+  create: (orderNumber: string, paymentMethod: string) =>
+    api.post('/payments/create/', { order_number: orderNumber, payment_method: paymentMethod }),
+  confirm: (paymentId: number, transactionId: string, gatewayResponse?: Record<string, any>) =>
+    api.post('/payments/confirm/', { payment_id: paymentId, transaction_id: transactionId, gateway_response: gatewayResponse }),
+  fail: (paymentId: number, errorMessage: string) =>
+    api.post('/payments/fail/', { payment_id: paymentId, error_message: errorMessage }),
+  registerBankTransfer: (orderNumber: string, bankName: string, referenceNumber: string) =>
+    api.post('/payments/bank-transfer/', { order_number: orderNumber, bank_name: bankName, reference_number: referenceNumber }),
 }
 
 export const contentService = {
