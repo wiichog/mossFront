@@ -1,0 +1,14 @@
+# Hahnemann & Moss Baby - Robots.txt
+# https://hahnemann.gt
+
+User-agent: *
+Allow: /
+
+# Disallow admin and private pages
+Disallow: /cuenta/
+Disallow: /checkout/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://hahnemann.gt/sitemap.xml
+
