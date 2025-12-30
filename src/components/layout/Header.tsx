@@ -84,15 +84,17 @@ export function Header() {
               </button>
               
               <Link 
-                href="/cuenta/favoritos"
+                href="/perfil?tab=wishlist"
                 className="p-2 rounded-full hover:bg-gray-100 transition-colors hidden sm:flex"
+                aria-label="Favoritos"
               >
                 <FiHeart className="w-5 h-5" />
               </Link>
               
               <Link 
-                href="/cuenta"
+                href="/perfil"
                 className="p-2 rounded-full hover:bg-gray-100 transition-colors hidden sm:flex"
+                aria-label="Mi Perfil"
               >
                 <FiUser className="w-5 h-5" />
               </Link>
@@ -148,12 +150,12 @@ export function Header() {
                 ))}
                 <hr className="my-2" />
                 <Link
-                  href="/cuenta"
+                  href="/perfil"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="flex items-center py-2 font-medium hover:text-hahnemann-500"
                 >
                   <FiUser className="w-5 h-5 mr-2" />
-                  Mi Cuenta
+                  Mi Perfil
                 </Link>
               </nav>
             </motion.div>
